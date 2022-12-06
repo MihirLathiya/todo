@@ -30,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        // backgroundColor: Colors.yellow.shade50,
         appBar: AppBar(
           backgroundColor: AppColor.black,
           elevation: 0,
@@ -64,15 +65,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       ), //Text
                     ), //circleAvatar
                   ), //UserAccountDrawerHeader
-                ), //DrawerHeader
-                ListTile(
-                  leading: const Icon(Icons.person_outline),
-                  title: const Text('Private notes'),
-                  onTap: () {
-                    Get.back();
-                    Get.to(() => PrivateNoteScreen());
-                  },
-                ),
+                ), //Dr
+                if (PreferenceManager.getBio() == true) // awerHeader
+                  ListTile(
+                    leading: const Icon(Icons.person_outline),
+                    title: const Text('Private notes'),
+                    onTap: () {
+                      Get.back();
+                      Get.to(() => PrivateNoteScreen());
+                    },
+                  ),
                 ListTile(
                   leading: const Icon(Icons.logout),
                   title: const Text('Log out'),
@@ -149,77 +151,88 @@ class _HomeScreenState extends State<HomeScreen> {
                           }).toList();
                         }
 
-                        return MasonryGridView.count(
-                          padding:
-                              EdgeInsets.only(top: 20, right: 10, left: 10),
-                          physics: BouncingScrollPhysics(),
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 10,
-                          crossAxisSpacing: 10,
-                          itemCount: data.length,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Get.to(() => ShowNotes(
-                                      date: data[index]['date'],
-                                      title: data[index]['title'],
-                                      ds: data[index]['des'],
-                                      id: data[index].id,
-                                      value: data[index]['isPrivate'],
-                                    ));
-                              },
-                              child: Container(
-                                height: 200,
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.all(15),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(),
-                                ),
-                                child: SingleChildScrollView(
-                                  physics: BouncingScrollPhysics(),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              '${data[index]['title']}',
-                                              textAlign: TextAlign.center,
-                                              overflow: TextOverflow.visible,
-                                              style:
-                                                  AppTextStyle.blackSize22W600,
-                                            ),
-                                          ),
+                        return data.length == 0
+                            ? Center(
+                                child: Text('No note added'),
+                              )
+                            : MasonryGridView.count(
+                                padding: EdgeInsets.only(
+                                    top: 20, right: 10, left: 10),
+                                physics: BouncingScrollPhysics(),
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
+                                itemCount: data.length,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Get.to(() => ShowNotes(
+                                            date: data[index]['date'],
+                                            title: data[index]['title'],
+                                            ds: data[index]['des'],
+                                            id: data[index].id,
+                                            value: data[index]['isPrivate'],
+                                          ));
+                                    },
+                                    child: Container(
+                                      height: 200,
+                                      alignment: Alignment.center,
+                                      padding: EdgeInsets.all(15),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(),
+                                        color: AppColor.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 2,
+                                            color: Colors.grey,
+                                            offset: Offset(2, 2),
+                                          )
                                         ],
                                       ),
-                                      SizedBox(
-                                        height: 20,
+                                      child: SingleChildScrollView(
+                                        physics: BouncingScrollPhysics(),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    '${data[index]['title']}',
+                                                    textAlign: TextAlign.center,
+                                                    overflow:
+                                                        TextOverflow.visible,
+                                                    style: AppTextStyle
+                                                        .blackSize22W600,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Text(
+                                              '${data[index]['des']}',
+                                              overflow: TextOverflow.visible,
+                                              style: AppTextStyle.blackSize18,
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Text(
+                                              '${data[index]['date']}',
+                                              overflow: TextOverflow.visible,
+                                              style: AppTextStyle.blackSize18,
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                      Text(
-                                        '${data[index]['des']}',
-                                        textAlign: TextAlign.center,
-                                        overflow: TextOverflow.visible,
-                                        style: AppTextStyle.blackSize18,
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      Text(
-                                        '${data[index]['date']}',
-                                        textAlign: TextAlign.center,
-                                        overflow: TextOverflow.visible,
-                                        style: AppTextStyle.blackSize18,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        );
+                                    ),
+                                  );
+                                },
+                              );
                       } else {
                         return Center(
                           child: CircularProgressIndicator(),

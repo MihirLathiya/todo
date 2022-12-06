@@ -4,6 +4,7 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:todo/Constant/app_color.dart';
 import 'package:todo/Constant/text_style.dart';
 import 'package:todo/Controller/task_add_controllers.dart';
+import 'package:todo/PrefrenceManager/preference.dart';
 
 class TaskAddScreen extends StatefulWidget {
   const TaskAddScreen({Key? key}) : super(key: key);
@@ -23,7 +24,6 @@ class _TaskAddScreenState extends State<TaskAddScreen> {
 
   @override
   void initState() {
-    taskAddControllers.checkBiometric();
     // TODO: implement initState
     super.initState();
   }
@@ -68,6 +68,8 @@ class _TaskAddScreenState extends State<TaskAddScreen> {
                     height: 5,
                   ),
                   TextFormField(
+                    cursorColor: AppColor.black,
+
                     style: AppTextStyle.blackSize18,
                     validator: (val) {
                       if (val!.isEmpty) {
@@ -95,6 +97,8 @@ class _TaskAddScreenState extends State<TaskAddScreen> {
                     height: 5,
                   ),
                   TextFormField(
+                    cursorColor: AppColor.black,
+
                     style: AppTextStyle.blackSize18,
                     controller: controller.description,
                     maxLines: 8,
@@ -117,25 +121,29 @@ class _TaskAddScreenState extends State<TaskAddScreen> {
                   SizedBox(
                     height: 5,
                   ),
-                  TextFormField(
-                    style: AppTextStyle.blackSize18,
-                    controller: controller.date,
-                    // keyboardType: TextInputType.number,
+                  GestureDetector(
                     onTap: () {
                       controller.pickDate(context);
                     },
-                    decoration: InputDecoration(
-                      hintText: 'Date',
-                      hintStyle: AppTextStyle.blackSize18,
-                      border: outlineInputBorder,
-                      enabledBorder: outlineInputBorder,
-                      focusedBorder: outlineInputBorder,
+                    child: Container(
+                      height: 60,
+                      padding: EdgeInsets.all(10),
+                      width: Get.width,
+                      alignment: Alignment.centerLeft,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(),
+                      ),
+                      child: Text(
+                        '${controller.date.text}',
+                        style: TextStyle(fontSize: 17),
+                      ),
                     ),
                   ),
                   SizedBox(
                     height: 20,
                   ),
-                  if (controller.canCheckBiometric == true)
+                  if (PreferenceManager.getBio() == true)
                     Row(
                       children: [
                         Switch(
@@ -155,7 +163,7 @@ class _TaskAddScreenState extends State<TaskAddScreen> {
                         )
                       ],
                     ),
-                  if (controller.canCheckBiometric == false)
+                  if (PreferenceManager.getBio() == null)
                     Text(
                       '* Your device not support biometric authentication so you can Not access private note feature ',
                       style: TextStyle(color: Colors.red),

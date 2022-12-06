@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
 import 'package:todo/Constant/text_style.dart';
+import 'package:todo/Controller/local_auth_controller.dart';
 import 'package:todo/PrefrenceManager/preference.dart';
 import 'package:todo/View/Auth/auth_screen.dart';
 import 'package:todo/View/home_screen.dart';
@@ -16,8 +17,10 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  LocalAuthController localAuthController = Get.put(LocalAuthController());
   @override
   void initState() {
+    localAuthController.checkBiometric();
     Timer(Duration(seconds: 2), () {
       Get.offAll(() => PreferenceManager.getLogIn() == true ||
               PreferenceManager.getLogIn() != null

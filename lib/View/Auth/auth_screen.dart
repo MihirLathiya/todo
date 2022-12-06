@@ -41,6 +41,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           return 'Enter Name';
                         }
                       },
+                      cursorColor: AppColor.black,
                       controller: controller.name,
                       keyboardType: TextInputType.name,
                       decoration: InputDecoration(
@@ -59,6 +60,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       height: 20,
                     ),
                     TextFormField(
+                      cursorColor: AppColor.black,
                       style: AppTextStyle.blackSize18,
                       validator: (val) {
                         RegExp regex = RegExp(

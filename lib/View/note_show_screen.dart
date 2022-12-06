@@ -95,6 +95,14 @@ class _ShowNotesState extends State<ShowNotes> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           border: Border.all(),
+          color: AppColor.white,
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 2,
+              color: Colors.grey,
+              offset: Offset(2, 2),
+            )
+          ],
         ),
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),

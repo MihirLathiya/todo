@@ -6,6 +6,7 @@ class PreferenceManager {
   static String mobile = "mobile";
   static String logIn = "logIn";
   static String name = "name";
+  static String bio = "bio";
 
   ///mobile
   static Future setMobile(String value) async {
@@ -14,6 +15,16 @@ class PreferenceManager {
 
   static String getMobile() {
     return getStorage.read(mobile);
+  }
+
+  /// BIO
+
+  static Future setBio(bool value) async {
+    await getStorage.write(bio, value);
+  }
+
+  static getBio() {
+    return getStorage.read(bio);
   }
 
   ///NAME

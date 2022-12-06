@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:todo/PrefrenceManager/preference.dart';
 
 class LocalAuthController extends GetxController {
   LocalAuthentication auth = LocalAuthentication();
@@ -18,12 +19,14 @@ class LocalAuthController extends GetxController {
   // if we can use them or not
   Future<void> checkBiometric() async {
     try {
-      canCheckBiometric = await auth.canCheckBiometrics;
+      canCheckBiometric = await LocalAuthentication().canCheckBiometrics;
     } on PlatformException catch (e) {
       print(e);
     }
 
     log('BIO METRIC : $canCheckBiometric');
+    PreferenceManager.setBio(canCheckBiometric!);
+
     update();
   }
 
@@ -39,6 +42,7 @@ class LocalAuthController extends GetxController {
     }
 
     _availableBiometric = availableBiometric;
+    log('GET DATA :- ${_availableBiometric}');
     update();
   }
 
@@ -51,7 +55,7 @@ class LocalAuthController extends GetxController {
     bool authenticated = false;
     try {
       authenticated = await auth.authenticate(
-        localizedReason: "Scan your finger print to authenticate",
+        localizedReason: "Scan your finger print to unlock notes",
       );
     } on PlatformException catch (e) {
       print(e);
@@ -59,6 +63,7 @@ class LocalAuthController extends GetxController {
 
     authorized =
         authenticated ? "Authorized success" : "Failed to authenticate";
+
     update();
 
     log('MESSAGES :- ${authorized}');
