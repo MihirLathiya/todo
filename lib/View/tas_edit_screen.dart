@@ -29,13 +29,10 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
-
     taskUpdateControllers.name.text = widget.title!;
     taskUpdateControllers.description.text = widget.ds!;
     taskUpdateControllers.date.text = widget.date!;
     taskUpdateControllers.updatePrivate(widget.value);
-
     super.initState();
   }
 
@@ -45,6 +42,7 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
       appBar: AppBar(
         backgroundColor: AppColor.black,
         leading: IconButton(
+          splashRadius: 20,
           icon: Icon(
             Icons.arrow_back_ios,
             color: AppColor.white,

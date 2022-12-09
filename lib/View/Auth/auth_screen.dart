@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:todo/Constant/app_color.dart';
 import 'package:todo/Constant/text_style.dart';
+import 'package:todo/Controller/local_auth_controller.dart';
 import 'package:todo/Controller/mobile_auth_controller.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -21,6 +23,13 @@ class _AuthScreenState extends State<AuthScreen> {
     borderSide: BorderSide(color: AppColor.black),
   );
   final _formKey = GlobalKey<FormState>();
+  LocalAuthController localAuthController = Get.put(LocalAuthController());
+  @override
+  void initState() {
+    localAuthController.checkBiometric();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,8 +41,16 @@ class _AuthScreenState extends State<AuthScreen> {
               return Form(
                 key: _formKey,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    SizedBox(
+                      height: Get.height * 0.18,
+                    ),
+                    SvgPicture.asset(
+                      'assets/lohgo.svg',
+                      height: Get.height * 0.190,
+                      width: Get.height * 0.190,
+                    ),
+                    Spacer(),
                     TextFormField(
                       style: AppTextStyle.blackSize18,
                       validator: (val) {
@@ -100,7 +117,10 @@ class _AuthScreenState extends State<AuthScreen> {
                         child:
                             Text('Send Otp', style: AppTextStyle.whiteSize18),
                       ),
-                    )
+                    ),
+                    SizedBox(
+                      height: 170,
+                    ),
                   ],
                 ),
               );

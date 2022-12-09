@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
@@ -119,13 +120,17 @@ class _PrivateNoteScreenState extends State<PrivateNoteScreen> {
                                 itemBuilder: (context, index) {
                                   return GestureDetector(
                                     onTap: () {
-                                      Get.to(() => ShowNotes(
-                                            date: data[index]['date'],
-                                            title: data[index]['title'],
-                                            ds: data[index]['des'],
-                                            id: data[index].id,
-                                            value: data[index]['isPrivate'],
-                                          ));
+                                      Get.to(
+                                          () => ShowNotes(
+                                                date: data[index]['date'],
+                                                title: data[index]['title'],
+                                                ds: data[index]['des'],
+                                                id: data[index].id,
+                                                value: data[index]['isPrivate'],
+                                              ),
+                                          transition: index % 2 == 0
+                                              ? Transition.leftToRight
+                                              : Transition.rightToLeft);
                                     },
                                     child: Container(
                                       height: 200,
@@ -139,7 +144,7 @@ class _PrivateNoteScreenState extends State<PrivateNoteScreen> {
                                           BoxShadow(
                                             blurRadius: 2,
                                             color: Colors.grey,
-                                            offset: Offset(2, 2),
+                                            offset: Offset(1, 1),
                                           ),
                                         ],
                                       ),
@@ -193,7 +198,7 @@ class _PrivateNoteScreenState extends State<PrivateNoteScreen> {
                       }
                     } else {
                       return Center(
-                        child: CircularProgressIndicator(),
+                        child: CupertinoActivityIndicator(),
                       );
                     }
                   },

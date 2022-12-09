@@ -35,7 +35,7 @@ class MobileController extends GetxController {
             verificationIds = verificationId;
             Get.to(
               () => OtpScreen(),
-              transition: Transition.zoom,
+              transition: Transition.downToUp,
             );
             controller.reset();
 
@@ -80,7 +80,10 @@ class MobileController extends GetxController {
 
       if (userCred.user != null) {
         showAlert('success user signed with phone number');
-        Get.offAll(() => HomeScreen());
+        Get.offAll(
+          () => HomeScreen(),
+          transition: Transition.upToDown,
+        );
         PreferenceManager.setLogIn(true);
         PreferenceManager.setName(name.text.trim());
         PreferenceManager.setMobile(phone.text.trim());

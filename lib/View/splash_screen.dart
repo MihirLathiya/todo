@@ -1,10 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
-import 'package:todo/Constant/text_style.dart';
-import 'package:todo/Controller/local_auth_controller.dart';
 import 'package:todo/PrefrenceManager/preference.dart';
 import 'package:todo/View/Auth/auth_screen.dart';
 import 'package:todo/View/home_screen.dart';
@@ -17,10 +16,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  LocalAuthController localAuthController = Get.put(LocalAuthController());
   @override
   void initState() {
-    localAuthController.checkBiometric();
     Timer(Duration(seconds: 2), () {
       Get.offAll(() => PreferenceManager.getLogIn() == true ||
               PreferenceManager.getLogIn() != null
@@ -37,10 +34,11 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'T O D O ',
-              style: AppTextStyle.blackSize22W600,
-            )
+            SvgPicture.asset(
+              'assets/lohgo.svg',
+              height: 150,
+              width: 150,
+            ),
           ],
         ),
       ),

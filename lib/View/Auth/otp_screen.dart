@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
@@ -28,6 +29,15 @@ class _OtpScreenState extends State<OtpScreen> {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(
+                  height: Get.height * 0.18,
+                ),
+                SvgPicture.asset(
+                  'assets/lohgo.svg',
+                  height: Get.height * 0.190,
+                  width: Get.height * 0.190,
+                ),
+                Spacer(),
                 Text(
                   'Enter OTP',
                   style: AppTextStyle.blackSize22W600,
@@ -41,7 +51,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   fieldWidth: 40,
                   keyboardType: TextInputType.number,
                   contentPadding: EdgeInsets.symmetric(vertical: 5),
-                  style: TextStyle(fontSize: 17),
+                  style: AppTextStyle.blackSize18,
                   textFieldAlignment: MainAxisAlignment.spaceAround,
                   fieldStyle: FieldStyle.box,
                   outlineBorderRadius: 7,
@@ -79,6 +89,9 @@ class _OtpScreenState extends State<OtpScreen> {
                       style: AppTextStyle.whiteSize18,
                     ),
                   ),
+                ),
+                SizedBox(
+                  height: 140,
                 ),
               ],
             );

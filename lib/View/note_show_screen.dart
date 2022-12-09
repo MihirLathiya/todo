@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:todo/Constant/app_color.dart';
 import 'package:todo/Constant/text_style.dart';
@@ -26,6 +27,7 @@ class _ShowNotesState extends State<ShowNotes> {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
+          splashRadius: 20,
           icon: Icon(
             Icons.arrow_back_ios,
             color: AppColor.white,
@@ -39,27 +41,39 @@ class _ShowNotesState extends State<ShowNotes> {
           style: AppTextStyle.whiteSize22W600,
         ),
         actions: [
-          IconButton(
-            splashRadius: 20,
-            onPressed: () {
-              Get.to(() => TaskEditScreen(
-                    title: widget.title,
-                    ds: widget.ds,
-                    date: widget.date,
-                    id: widget.id,
-                    value: widget.value,
-                  ));
+          GestureDetector(
+            onTap: () {
+              Get.to(
+                () => TaskEditScreen(
+                  title: widget.title,
+                  ds: widget.ds,
+                  date: widget.date,
+                  id: widget.id,
+                  value: widget.value,
+                ),
+                transition: Transition.upToDown,
+              );
             },
-            icon: Icon(Icons.edit),
+            child: SvgPicture.asset(
+              'assets/edit.svg',
+              height: 25,
+              width: 25,
+              color: AppColor.white,
+            ),
           ),
-          IconButton(
-            splashRadius: 20,
-            onPressed: () async {
+          SizedBox(
+            width: 20,
+          ),
+          GestureDetector(
+            onTap: () {
               showDialog(
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    title: Text('Ary you sure to delete this not?'),
+                    title: Text(
+                      'Ary you sure to delete this not?',
+                      style: AppTextStyle.blackSize18,
+                    ),
                     actions: [
                       IconButton(
                         onPressed: () async {
@@ -85,7 +99,15 @@ class _ShowNotesState extends State<ShowNotes> {
                 },
               );
             },
-            icon: Icon(Icons.delete),
+            child: SvgPicture.asset(
+              'assets/trash.svg',
+              height: 25,
+              width: 25,
+              color: AppColor.white,
+            ),
+          ),
+          SizedBox(
+            width: 20,
           ),
         ],
       ),
@@ -100,7 +122,7 @@ class _ShowNotesState extends State<ShowNotes> {
             BoxShadow(
               blurRadius: 2,
               color: Colors.grey,
-              offset: Offset(2, 2),
+              offset: Offset(1, 1),
             )
           ],
         ),
