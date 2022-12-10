@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:todo/View/splash_screen.dart';
 
 void main() async {
@@ -14,6 +15,9 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+  Future<InitializationStatus> _initGoogleMobileAds() {
+    return MobileAds.instance.initialize();
+  }
 
   // This widget is the root of your application.
   @override
