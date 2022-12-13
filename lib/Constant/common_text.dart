@@ -44,3 +44,6 @@ class CommonText extends StatelessWidget {
     );
   }
 }
+
+String stripePublishKey =
+    'pk_test_51LF9k4SDjpVX8m04CKxiHxTb0z6xq1pn8TIfwQI1LYQvhVOYDd2rPrYzPI2S9j0nNrYbRyd2oZNDG6mgSgaD1mfq00yo7VxAUT';
